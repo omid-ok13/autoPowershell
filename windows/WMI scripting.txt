@@ -1,0 +1,13 @@
+### scripting in WMI ###
+## source:
+# https://learn.microsoft.com/en-us/archive/technet-wiki/31701.windows-sample-wmi-filter-strings
+
+## example:
+## 1 = clients
+## 2 = DC server
+## 3 = server that not DC
+# in WMI scripting box
+$ select * from Win32_OperatingSystem WHERE (ProductType <> "2") AND (ProductType <> "3")
+
+$ select * from Win32_OperatingSystem WHERE Version like "10.0%" AND ProductType="1"
+

@@ -1,0 +1,5 @@
+V:\
+cd v:\windows\system32
+bcdboot v:\windows /s S: /f {UEFI/BIOS}
+
+bcdedit /set <id> path \windows\system32\winload.efi

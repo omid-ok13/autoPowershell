@@ -1,0 +1,25 @@
+### Active directory snapshot ### 
+
+## creating it (ntdsutil)
+# in cmd
+ntdsutil
+$ activate instance ntds
+$ snapshot 
+$ create
+$ list all # to ensure that snapshot is created
+$ quit # to quit ntdsutil
+
+
+## to mount snapshot (ntdsutil)
+# in cmd
+ntdsutil
+$ activate instance ntds
+$ snapshot 
+$ list all # to ensure that snapshot is created
+$ mount <GUID>
+$ quit # to quit ntdsutil
+
+## to run snapshot, it needs to run it manually
+# in cmd
+dsamain -dbpath C:\$snapshot-datetime-volume$\windows\ntds\ntds.dit -ldapport 50000 # or a random port
+

@@ -1,0 +1,19 @@
+### offline defragmentation of NTDS.DIT ###
+
+## open ntdsutil
+# in cmd 
+ntdsutil
+$ activate instance NTDS
+$ files
+$ compact to C:\ #or any path you want
+$ integrity
+$ quit
+$ quit #to quit ntdsutil
+
+## to copy ntds.dit 
+# in cmd
+copy C:\ntds.dit C:\windows\ntds\ntds.dit
+
+## to delete logs
+# in cmd 
+del C:\windows\ntds\*.log

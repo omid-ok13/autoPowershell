@@ -1,0 +1,52 @@
+
+Access denied when you try to give user "send-as" or "receive as" permission for a Distribution Group in Exchange Server 
+
+
+Symptoms
+Assume that you create a Distribution Group on one Microsoft Exchange Server. In this situation, you cannot grant users the send-as or receive-as permission to the Distribution Group by using the add-ADPermission cmdlet from other Exchange Servers. You receive a message such as the following:
+
+##Active Directory operation failed on <computer.domain.com>. This error is not retriable. Additional information: Access is denied.
+##Active directory response: 00000005: SecErr: DSID-031521D0, problem 4003 (INSUFF_ACCESS_RIGHTS), data 0
+## + CategoryInfo : WriteError: (0:Int32) [Add-ADPermission], ADOperationException
+## + FullyQualifiedErrorId : 5557AD82,Microsoft.Exchange.Management.RecipientTasks.AddADPermission
+
+In this example, <computer.domain.com> represents the fully qualified domain name of the computer.
+
+
+# Cause
+
+By default, Exchange Trusted Subsystem is not granted the "modify permissions" permission. This causes the Add-ADPermission cmdlet to fail with an Access Denied error in some circumstances. 
+
+Specifically, this error will occur under either of the following circumstances:
+
+    If the admin user who makes the change has an associated mailbox, this error occurs if the Owner of the Active Directory group object being modified differs from the computer that hosts that mailbox.
+
+    If the admin user who makes the change does not have an associated mailbox, this error  occurs if the Owner of the Active Directory group object being modified differs from the computer that hosts the arbitration mailbox (the arbitration mailbox has a name that resembles SystemMailbox{bb558c35-97f1-4cb9-8ff7-d53741dc928c).
+
+Resolution
+
+To work around this issue, add the "modify permissions" permission for the Exchange Trusted Subsystem to the organizational unit (OU) that contains the Distribution Group. To do this, follow these steps:
+
+    Open Active Directory Users and Computers.
+
+    Select View > Advanced Features.
+
+    Right-click the OU that contains the distribution lists, and then select Properties.
+
+    Select Security > Advanced.
+
+    Select Permissions > Add.
+
+    In the Permissions Entry for <OU NAME> window, select Select a principal.
+
+    In the Enter object name to select box, type Exchange Trusted Subsystem, and then select OK.
+
+    Note: If Exchange Server is installed in a domain other than this Organizational Unit's domain, Exchange Trusted Subsystem may not be found in the current domain. It will be necessary to change the From this location setting to the domain in which Exchange is installed.
+
+    In the Permissions Entry for <OU NAME> window, change the Applies to value to Descendant Group objects.
+
+    To clear all permission selections that have been added by default, scroll to the bottom of the window and select Clear all.
+
+    In the Permissions section of the window, select Modify permissions.
+
+    To apply the permission and close all windows, select OK three times.

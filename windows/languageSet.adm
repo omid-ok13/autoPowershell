@@ -1,0 +1,24 @@
+CLASS USER
+	CATEGORY "Keyboard Layout"
+		Policy "Keyboard Layout switching"
+		Keyname "software\microsoft\windows\currentversion\run"
+			valuename "internat.exe"
+			valueon "internat.exe"
+			valueoff delete
+		END policy
+		POLICY "Keyboard Layout"
+		KEYNAME "Keyboard Layout\Preload"
+			PART "Enable English" CHECkBOX
+			  DEFCHECKED
+			VALUENAME "1"
+			VALUEON "00000409"
+			VALUEOFF "DELETE"
+			END PART
+			PART "Enable persian" CHECkBOX
+			  DEFCHECKED
+			VALUENAME "1"
+			VALUEON "00000409"
+			VALUEOFF "DELETE"
+			END PART
+		END POLICY
+END CATEGORY

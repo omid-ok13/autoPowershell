@@ -1,0 +1,75 @@
+CLASS MACHINE
+
+CATEGORY "Timezone"
+
+ KEYNAME "SYSTEM\CurrentControlSet\Control\TimeZoneInformation"
+
+ POLICY "Bias"
+  PART "Bias"
+  NUMERIC
+  VALUENAME "Bias"
+  END PART
+ END POLICY
+
+ POLICY "StandardName"
+  PART "StandardName"
+  EDITTEXT
+  DEFAULT "@tzres.dll, -432"
+  VALUENAME "StandardName"
+  END PART
+ END POLICY
+
+ POLICY "StandardBias"
+  PART "StandardBias"
+  NUMERIC
+  VALUENAME "StandardBias"
+  MIN 0
+  END PART
+ END POLICY
+
+ POLICY "StandardStart"
+  PART "StandardStart"
+  NUMERIC
+  VALUENAME "StandardStart"
+  END PART
+ END POLICY
+
+ POLICY "DaylightName"
+  PART "DaylightName"
+  EDITTEXT
+  DEFAULT "@tzres.dll, -431"
+  VALUENAME "DaylightName"
+  END PART
+ END POLICY
+
+ POLICY "TimezoneKeyName"
+  PART "TimezoneKeyName"
+  EDITTEXT
+  DEFAULT "Iran Standard Time"
+  VALUENAME "TimezoneKeyName"
+  END PART
+ END POLICY
+
+ POLICY "DaylightBias"
+  PART "DaylightBias"
+  NUMERIC
+  VALUENAME "DaylightBias"
+  MAX 9999999999
+  END PART
+ END POLICY
+
+ POLICY "DaylightStart"
+  PART "DaylightStart"
+  NUMERIC
+  VALUENAME "DaylightStart"
+  END PART
+ END POLICY
+
+ POLICY "ActiveTimeBias"
+  PART "ActiveTimeBias"
+  NUMERIC
+  VALUENAME "ActiveTimeBias"
+  END PART
+
+ END POLICY
+END CATEGORY

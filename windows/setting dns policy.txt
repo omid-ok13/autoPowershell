@@ -1,0 +1,24 @@
+### setting dns policy ### 
+
+## first adding subnets ## 
+
+# Name is optional
+Add-DnsServerClientSubnet -Name "EastSubnet" -IPv4Subnet "192.168.1.0/24"
+Add-DnsServerClientSubnet -Name "WestSubnet" -IPv4Subnet "192.168.22.0/24"
+
+
+## adding zone scopes ##
+
+Add-DnsServerZoneScope -ZoneName "khar.ir" -Name "EastZoneScope"
+Add-DnsServerZoneScope -ZoneName "khar.ir" -Name "WestZoneScope"
+
+
+## adding and configure record ##
+ 
+Add-DnsServerResourceRecord -ZoneName "khar.ir" -A -Name "alaki" -IPv4Address "192.168.1.15/24" -ZoneScope "EastZoneScope"
+Add-DnsServerResourceRecord -ZoneName "khar.ir" -A -Name "alaki" -IPv4Address "192.168.22.151/24" -ZoneScope "WestZoneScope"]
+
+## setting policies for each zone ##
+
+Add-DnsServerQueryResolutionPolicy -Name "EastPolicy" -Action ALLOW -ClientSubnet "eq,EastSubnet" -ZoneScope "EastZoneScope,1" -ZoneName "khar.ir"
+Add-DnsServerQueryResolutionPolicy -Name "WestPolicy" -Action ALLOW -ClientSubnet "eq,WestSubnet" -ZoneScope "WestZoneScope,1" -ZoneName "khar.ir"

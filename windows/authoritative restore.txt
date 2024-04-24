@@ -1,0 +1,11 @@
+### to authoritative restore an object ###
+## in DSRM MODE
+
+## open ntdsutil
+# in cmd
+ntdsutil
+$ authoritative restore
+$ restore object cn=test,ou=OU,dc=ok1,dc=test # or you another DN of an object
+--- OR ---
+$ restore subtree <DN>
+

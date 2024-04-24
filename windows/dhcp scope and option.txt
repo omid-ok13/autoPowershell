@@ -1,0 +1,6 @@
+### set class id for NIC ###
+## for using in dhcp special user scope
+# in cmd 
+ipconfig /setclassid <ethernet name> <dhcp id name>
+# example:
+ipconfig /setclassid ethernet0 ITscope

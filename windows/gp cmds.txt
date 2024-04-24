@@ -1,0 +1,19 @@
+### Group policy commands ###
+
+
+## to update gp
+# in cmd
+gpupdate 
+--- OR ---
+gpupdate /force
+
+## to show the current gp settings
+# in cmd 
+gpresult /r
+gpresult /r scope <computer,user>
+gpresult /h "savelocation.html"
+gpresult /s "computerName" /u "userName" /p "password" /v
+
+## to show the authenticator server
+# in cmd
+set logonserver

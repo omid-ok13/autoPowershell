@@ -1,0 +1,5 @@
+### DNS SERVER RELATED COMMANDS ###
+
+## clear dns server cache
+# in cmd
+dnscmd /clearcashe

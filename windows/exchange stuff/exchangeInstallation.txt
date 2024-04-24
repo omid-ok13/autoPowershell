@@ -1,0 +1,26 @@
+### installation of exchange 2016 on winsrv2016 ###
+
+## step 1 : download following dependencies
+#  .net 4.8 
+# link :  https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-developer-pack-offline-installer
+# UCMA
+# link : https://download.microsoft.com/download/2/C/4/2C47A5C1-A1F3-4843-B9FE-84C0032C61EC/UcmaRuntimeSetup.exe
+# downlaod kb2306632
+# link : https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2016/12/windows10.0-kb3213522-x64_fc88893ff1fbe75cac5f5aae7ff1becee55c89dd.msu
+
+## step 2 : preparing ADDS schema
+#! (exchange can't install on DC)
+
+# install .net 4.8 on your mail server
+# make sure mail server have stable connection with PDC
+# use elavated user like Enterprise admins or domain admins
+
+# mount exchange iso and run following command in following path
+	./setup.exe /PrepareSchema /IAcceptExchangeServerLicenseTerms_DiagnosticDataON
+
+# now provide a name for your exchange service 
+	./setup.exe /PrepareAD /OrganizationName:"Exchange Lab" /IAcceptExchangeServerLicenseTerms_DiagnosticDataON
+	
+	
+	Install-WindowsFeature NET-Framework-45-Features, RPC-over-HTTP-proxy, RSAT-Clustering, RSAT-Clustering-CmdInterface, RSAT-Clustering-Mgmt, RSAT-Clustering-PowerShell, Web-Mgmt-Console, WAS-Process-Model, Web-Asp-Net45, Web-Basic-Auth, Web-Client-Auth, Web-Digest-Auth, Web-Dir-Browsing, Web-Dyn-Compression, Web-Http-Errors, Web-Http-Logging, Web-Http-Redirect, Web-Http-Tracing, Web-ISAPI-Ext,Web-ISAPI-Filter, Web-Lgcy-Mgmt-Console, Web-Metabase, Web-Mgmt-Console, Web-Mgmt-Service, Web-Net-Ext45, Web-Request-Monitor, Web-Server, Web-Stat-Compression, Web-Static-Content, Web-Windows-Auth,Web-WMI, Windows-Identity-Foundation, RSAT-ADDS
+
