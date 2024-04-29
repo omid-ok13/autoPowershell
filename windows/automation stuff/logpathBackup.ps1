@@ -1,9 +1,8 @@
 Stop-Transcript
 
 ## Define source and destination paths
-$sourceRoot = "D:\LogFiles\WebServer-01"
-$destinationRoot = "\\mohammad-pc\Backup-Logs"
-
+$sourceRoot = "C:\raw"
+$destinationRoot = "\\DC\back"
 
 ## Specify the number of months ago 
 # for Days set value in (Get-Date).AddDays(-1) <<===== just change -1 
