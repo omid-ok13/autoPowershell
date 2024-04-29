@@ -1,18 +1,26 @@
+Stop-Transcript
 
 ## Define source and destination paths
-$sourceRoot = "C:\raw"
-$destinationRoot = "\\dc\back"
+$sourceRoot = "D:\LogFiles\WebServer-01"
+$destinationRoot = "\\mohammad-pc\Backup-Logs"
+
 
 ## Specify the number of months ago 
 # for Days set value in (Get-Date).AddDays(-1) <<===== just change -1 
-#$oneMonthAgo = (Get-Date).AddDays(-1)
+#$itemsDate = (Get-Date).AddDays(-1)
 # for months set value in (Get-Date).AddMonths(-1) <<===== just change -1 
-$oneMonthAgo = (Get-Date).AddMonths(-3)
+#$itemsDate = (Get-Date).AddMonths(4).AddYears(-1)
 # for years set value in (Get-Date).AddYears(-1) <<===== just change -1 
-#$oneMonthAgo = (Get-Date).AddYears(-1)
+#$itemsDate = (Get-Date).AddYears(-1)
+# or if you have exact time to specify here you can set your time
+$itemsDate = (Get-Date -Year 2023 -Month 8)
 
+## just calculate the time for logging
+$timerStartTime = Get-Date
+Start-Transcript -Path "$destinationRoot\transcript.log"
 
-Write-Host "from $sourceRoot `nto $destinationRoot`n all file since $oneMonthAgo will be transfered!`n"
+Write-Host "from $sourceRoot `nto $destinationRoot`n all file since $itemsDate
+ will be transfer!`n"
 
 # Function to move files and create directories if needed
 function MoveAndCreateDirectoryIfNeeded($sourcePath, $destinationPath) {
@@ -23,11 +31,17 @@ function MoveAndCreateDirectoryIfNeeded($sourcePath, $destinationPath) {
     }
 
     #                                   ## find files here ##                           ## find last modified date here ##                   ## Copy the item ##
-    Get-ChildItem -Path $sourcePath | Where-Object { $_.PSIsContainer -eq $false } | Where-Object {$_.LastWriteTime -gt $oneMonthAgo} | Copy-Item -Destination $destinationPath -Verbose
+    #Get-ChildItem -Path $sourcePath | Where-Object { $_.PSIsContainer -eq $false } | Where-Object {$_.LastWriteTime -gt $itemsDate } | Copy-Item -Destination $destinationPath -Verbose
 
-    Write-Host "`n`n`n"
+    Get-ChildItem -Path $sourcePath | 
+        Where-Object { $_.PSIsContainer -eq $false } | 
+        Where-Object {$_.LastWriteTime.Year -eq $itemsDate.Year}  | 
+        Where-Object {$_.LastWriteTime.Month -eq $itemsDate.Month} | 
+        Copy-Item -Destination $destinationPath -Verbose
+
+    Write-Host "`n"
     ## for move the items uncomment it, but becareful
-    # Get-ChildItem -Path $sourcePath | Where-Object { $_.PSIsContainer -eq $false } | Where-Object {$_.LastWriteTime -gt $oneMonthAgo} | Move-Item -Destination $destinationPath
+    # Get-ChildItem -Path $sourcePath | Where-Object { $_.PSIsContainer -eq $false } | Where-Object {$_.LastWriteTime -gt $itemsDate} | Move-Item -Destination $destinationPath
 }
 
 # Process LogFile directories
@@ -112,3 +126,16 @@ Get-ChildItem -Path $sourceRoot | ForEach-Object {
     ##############################################################################################
     ##############################################################################################
 }
+
+## just calculate the time 
+$timerEndTime = Get-Date
+
+# Calculate the duration of the script
+$duration = New-TimeSpan -Start $timerstartTime -End $timerEndTime
+
+# Convert duration to a readable format (e.g., hours, minutes, seconds)
+$durationFormatted = '{0:00}:{1:00}:{2:00},{3:00}' -f $duration.Hours, $duration.Minutes, $duration.Seconds, $duration.Milliseconds
+Write-Host "Script execution duration: $durationFormatted `n"
+
+# Stop recording transcript
+Stop-Transcript
