@@ -1,8 +1,8 @@
 ### find all files in last inserted month and copy it in diffrent path in a same directory structure ###
 
 ## Define source and destination paths
-$sourceRoot = "D:\LogFiles\WebServer-01"
-$destinationRoot = "\\mohammad-pc\Backup-Logs"
+$sourceRoot = "your source"
+$destinationRoot = "your destination"
 
 ## Specify the number of months ago 
 # for Days set value in (Get-Date).AddDays(-1) <<===== just change -1 
