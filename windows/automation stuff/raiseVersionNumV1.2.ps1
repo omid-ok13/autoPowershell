@@ -51,7 +51,7 @@ $endVal = "`""
 # path of file 
 $filePath = "E:\commands\windows\test\test.json"
 # the number of value you want to rais by 1
-$hotFix = 3
+$hotFix = 2
 ###################################################
 
 $inputText = @(Get-Content -LiteralPath $filePath -Raw)
@@ -61,7 +61,7 @@ $versionString = Get-TextBetweenValues -startValue $startVal -endValue $endVal -
 $versionArray = $versionString -split '\.'
 $hotFix -= 1
 
-if($versionArray.Count -gt $hotFix){
+if($hotFix -gt 0 -and $versionArray.Count -gt $hotFix){
     
     # debug infos
     Write-Verbose -Message "the selected string is: $versionString" -Verbose
@@ -82,12 +82,12 @@ if($versionArray.Count -gt $hotFix){
 
     ## Call the function to replace text between [start] and [end] with "new text"
 
-    $updatedText = ReplaceTextBetweenValues -text $inputText  -startValue $startVal -endValue $endVal -newText $newTextValue
+    $updatedText = ReplaceTextBetweenValues -text $inputText -startValue $startVal -endValue $endVal -newText $newTextValue
 
     ## Save and Output the updated text
     Set-Content $filePath -Value $updatedText
-    Write-Output $updatedText
+    Write-Host $updatedText -ForegroundColor Magenta
 
 } else {
-    Write-Error "inputed hotfix value is greater than numbers of version numbers!"
+    Write-Error "inputed hotfix value is greater than numbers `nof version numbersor less than 0!"
 }
